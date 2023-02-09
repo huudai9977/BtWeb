@@ -20,21 +20,31 @@
         <div class="title">Danh sách sản phẩm</div>
         <div class="list-icon">
           <ul>
-            <li><button type="button" class="fa fa-refresh" onclick = "reset()" ></button></li>
+            <li><button type="button" class="fa fa-refresh"></button></li>
             <li>
-              <button type="button" class="fa fa-plus" data-toggle="modal" data-target="#myModal" onclick = "FormAdd()"></button>
+              <button
+                type="button"
+                class="fa fa-plus"
+                data-toggle="modal"
+                data-target="#myModal" 
+              ></button>
             </li>
-            <li><button type="button" class="fa fa-edit" onclick = "EditData('')"></button></li>
-            <li><button type="button" class="fa fa-copy" > </button></li>
+            <li><button type="button" class="fa fa-edit"></button></li>
+            <li><button type="button" class="fa fa-copy"></button></li>
             <li>
-              <button type="button" class="fa fa-trash-o color-red" onclick = "DeleteData('')" ></button>
+              <button type="button" class="fa fa-trash-o color-red"></button>
             </li>
           </ul>
         </div>
       </div>
       <div class="content">
         <div class="input-group pd-h-1">
-          <input type="text" name="text-search" class="form-control" placeholder="Nhập thông tin tìm kiếm" id ="search_key"/>
+          <input
+            type="text"
+            name="text-search"
+            class="form-control"
+            placeholder="Nhập thông tin tìm kiếm"
+          />
           <div class="input-group-btn">
             <button class="btn btn-primary" type="submit">
               <i class="glyphicon glyphicon-search"></i>
@@ -47,7 +57,6 @@
               <tr>
                 <th class="center">STT</th>
                 <th >   </th>
-                <th >   </th>
                 <th>Mã hàng</th>
                 <th>Tên hàng</th>
                 <th>ĐVT</th>
@@ -57,9 +66,6 @@
                 <th>Quản lý serial</th>
                 <th>Nhóm 1</th>
                 <th>Nhóm 2</th>
-                <th >ngay</th>
-                <th >std</th>
-                <th >tien</th>
             </tr>
             </thead>
             <tbody id="danh_sach">
@@ -72,9 +78,10 @@
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;
+              <button type="button" class="close" data-dismiss="modal">
+                &times;
               </button>
-              <h4 class="modal-title text-center" id ="modal_title" ></h4>
+              <h4 class="modal-title text-center">Thêm mới vật tư</h4>
             </div>
             <div class="modal-body">
               <ul class="nav nav-tabs">
@@ -85,21 +92,27 @@
                   <a data-toggle="tab" href="#account">Tài khoản kế toán</a>
                 </li>
                 <li>
-                  <a data-toggle="tab" href="#account2">Test</a>
+                  <a data-toggle="tab" href="#account2">Tài khoản kế toán 23</a>
                 </li>
               </ul>
               <div class="tab-content">
                 <div id="information" class="tab-pane fade in active">
                   <div class="row">
-                    <div class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4" >
+                    <div
+                      class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4"
+                    >
                       <label for="ma_vt">Mã vật tư</label>
                       <input type="text" class="form-control" id="ma_vt" />
                     </div>
-                    <div class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4">
+                    <div
+                      class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4"
+                    >
                       <label for="ten_vt">Tên vật tư</label>
                       <input type="text" class="form-control" id="ten_vt" />
                     </div>
-                    <div class="form-group col-sx-12 col-sm-3 col-md-3 col-lg-3">
+                    <div
+                      class="form-group col-sx-12 col-sm-3 col-md-3 col-lg-3"
+                    >
                       <label for="dvt">ĐVT</label>
                       <div class="input-group">
                         <input type="text" name="dvt" class="form-control" id ="dvt" />
@@ -112,18 +125,28 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4">
+                    <div
+                      class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4"
+                    >
                       <label for="ma_vt_phu">Mã vật tư phụ</label>
                       <input type="text" class="form-control" id="ma_vt_phu" />
                     </div>
-                    <div class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4">
+                    <div
+                      class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4"
+                    >
                       <label for="ten_vt2">Tên vật tư 2</label>
                       <input type="text" class="form-control" id="ten_vt2" />
                     </div>
-                    <div  class="form-group col-sx-12 col-sm-3 col-md-3 col-lg-3" >
+                    <div
+                      class="form-group col-sx-12 col-sm-3 col-md-3 col-lg-3"
+                    >
                       <label for="ds_dvcs">Danh sách ĐVCS</label>
                       <div class="input-group">
-                        <input type="text"  name="ds_dvcs" class="form-control"      />
+                        <input
+                          type="text"
+                          name="ds_dvcs"
+                          class="form-control"
+                        />
                         <div class="input-group-btn">
                           <button class="btn btn-default" type="submit">
                             <i class="glyphicon glyphicon-search"></i>
@@ -133,17 +156,23 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4"   >
+                    <div
+                      class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4"
+                    >
                       <label for="ma_vach">Mã vạch</label>
                       <input type="text" class="form-control" id="ma_vach" />
                     </div>
-                    <div  class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4"      >
+                    <div
+                      class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4"
+                    >
                       <label for="model">Model</label>
                       <input type="text" class="form-control" id="model" />
                     </div>
                   </div>
                   <div class="row">
-                    <div  class="form-group col-sx-12 col-sm-3 col-md-3 col-lg-3"    >
+                    <div
+                      class="form-group col-sx-12 col-sm-3 col-md-3 col-lg-3"
+                    >
                       <label for="loai_vt">Theo dõi tồn kho</label>
                       <select class="form-control" id="theo_doi_ton_kho">
                         <option value="Có">Có</option>
@@ -152,31 +181,41 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="form-group col-sx-12 col-sm-2 col-md-2 col-lg-2"    >
+                    <div
+                      class="form-group col-sx-12 col-sm-2 col-md-2 col-lg-2"
+                    >
                       <label for="loai_vt1">Loại vật tư 1</label>
                       <select class="form-control" id="loai_vt1">
                         <option value="NL">NL</option>
                       </select>
                     </div>
-                    <div  class="form-group col-sx-12 col-sm-2 col-md-2 col-lg-2" >
+                    <div
+                      class="form-group col-sx-12 col-sm-2 col-md-2 col-lg-2"
+                    >
                       <label for="loai_vt2">Loại vật tư 2</label>
                       <select class="form-control" id="loai_vt2">
                         <option value="NDs">NDs</option>
                       </select>
                     </div>
-                    <div  class="form-group col-sx-12 col-sm-2 col-md-2 col-lg-2"   >
+                    <div
+                      class="form-group col-sx-12 col-sm-2 col-md-2 col-lg-2"
+                    >
                       <label for="loai_vt3">Loại vật tư 3</label>
                       <select class="form-control" id="loai_vt3">
                         <option value="">KD</option>
                       </select>
                     </div>
-                    <div   class="form-group col-sx-12 col-sm-2 col-md-2 col-lg-2" >
+                    <div
+                      class="form-group col-sx-12 col-sm-2 col-md-2 col-lg-2"
+                    >
                       <label for="loai_vt4">Loại vật tư 4</label>
                       <select class="form-control" id="loai_vt4">
                         <option value="">KD</option>
                       </select>
                     </div>
-                    <div  class="form-group col-sx-12 col-sm-2 col-md-2 col-lg-2"     >
+                    <div
+                      class="form-group col-sx-12 col-sm-2 col-md-2 col-lg-2"
+                    >
                       <label for="loai_vt5">Loại vật tư 5</label>
                       <select class="form-control" id="loai_vt5">
                         <option value="">KD</option>
@@ -184,31 +223,41 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div  class="form-group col-sx-12 col-sm-2 col-md-2 col-lg-2"  >
+                    <div
+                      class="form-group col-sx-12 col-sm-2 col-md-2 col-lg-2"
+                    >
                       <label for="tinh_gia">Tính giá</label>
                       <select class="form-control" id="tinh_gia">
                         <option value="Trung bình tháng">Trung bình tháng</option>
                       </select>
                     </div>
-                    <div class="form-group col-sx-12 col-sm-2 col-md-2 col-lg-2">
+                    <div
+                      class="form-group col-sx-12 col-sm-2 col-md-2 col-lg-2"
+                    >
                       <label for="ql_lo">Quản lý lô</label>
                       <select class="form-control" id="ql_lo">
                         <option value="Không quản lý">Không quản lý</option>
                       </select>
                     </div>
-                    <div  class="form-group col-sx-12 col-sm-2 col-md-2 col-lg-2" >
+                    <div
+                      class="form-group col-sx-12 col-sm-2 col-md-2 col-lg-2"
+                    >
                       <label for="ql_serial">Quản lý serial</label>
                       <select class="form-control" id="ql_serial">
                         <option value="Không quản lý">Không quản lý</option>
                       </select>
                     </div>
-                    <div   class="form-group col-sx-12 col-sm-2 col-md-2 col-lg-2"   >
+                    <div
+                      class="form-group col-sx-12 col-sm-2 col-md-2 col-lg-2"
+                    >
                       <label for="quang_cao">Bắt buộc QC</label>
                       <select class="form-control" id="quang_cao">
                         <option value="Không bắt buộc">Không bắt buộc</option>
                       </select>
                     </div>
-                    <div  class="form-group col-sx-12 col-sm-2 col-md-2 col-lg-2"    >
+                    <div
+                      class="form-group col-sx-12 col-sm-2 col-md-2 col-lg-2"
+                    >
                       <label for="trang_thai">Trạng thái</label>
                       <select class="form-control" id="trang_thai">
                         <option value="Sử dụng">Sử dụng</option>
@@ -218,7 +267,9 @@
                 </div>
                 <div id="account" class="tab-pane fade">
                   <div class="row">
-                    <div  class="form-group col-sx-12 col-sm-6 col-md-6 col-lg-6" >
+                    <div
+                      class="form-group col-sx-12 col-sm-6 col-md-6 col-lg-6"
+                    >
                       <label for="tk_vt">TK vật tư</label>
                       <div class="input-group">
                         <input type="text" name="tk_vt" class="form-control" />
@@ -229,7 +280,9 @@
                         </div>
                       </div>
                     </div>
-                    <div class="form-group col-sx-12 col-sm-6 col-md-6 col-lg-6" >
+                    <div
+                      class="form-group col-sx-12 col-sm-6 col-md-6 col-lg-6"
+                    >
                       <label for="tk_cl">TK chênh lệch</label>
                       <div class="input-group">
                         <input type="text" name="tk_cl" class="form-control" />
@@ -242,7 +295,9 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="form-group col-sx-12 col-sm-6 col-md-6 col-lg-6" >
+                    <div
+                      class="form-group col-sx-12 col-sm-6 col-md-6 col-lg-6"
+                    >
                       <label for="tk_gv">TK giá vốn</label>
                       <div class="input-group">
                         <input type="text" name="tk_gv" class="form-control" />
@@ -253,10 +308,16 @@
                         </div>
                       </div>
                     </div>
-                    <div class="form-group col-sx-12 col-sm-6 col-md-6 col-lg-6" >
+                    <div
+                      class="form-group col-sx-12 col-sm-6 col-md-6 col-lg-6"
+                    >
                       <label for="tk_gvnb">TK giá vốn nội bộ</label>
                       <div class="input-group">
-                        <input  type="text"    name="tk_gvnb"  class="form-control"  />
+                        <input
+                          type="text"
+                          name="tk_gvnb"
+                          class="form-control"
+                        />
                         <div class="input-group-btn">
                           <button class="btn btn-default" type="submit">
                             <i class="glyphicon glyphicon-search"></i>
@@ -266,7 +327,9 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="form-group col-sx-12 col-sm-6 col-md-6 col-lg-6" >
+                    <div
+                      class="form-group col-sx-12 col-sm-6 col-md-6 col-lg-6"
+                    >
                       <label for="tk_dt">TK doanh thu</label>
                       <div class="input-group">
                         <input type="text" name="tk_dt" class="form-control" />
@@ -277,10 +340,16 @@
                         </div>
                       </div>
                     </div>
-                    <div class="form-group col-sx-12 col-sm-6 col-md-6 col-lg-6" >
+                    <div
+                      class="form-group col-sx-12 col-sm-6 col-md-6 col-lg-6"
+                    >
                       <label for="tk_dtnb">TK doanh thu nội bộ</label>
                       <div class="input-group">
-                        <input  type="text"    name="tk_dtnb"  class="form-control"  />
+                        <input
+                          type="text"
+                          name="tk_dtnb"
+                          class="form-control"
+                        />
                         <div class="input-group-btn">
                           <button class="btn btn-default" type="submit">
                             <i class="glyphicon glyphicon-search"></i>
@@ -292,10 +361,12 @@
                 </div>
                 <div id="account2" class="tab-pane fade">
                   <div class="row">
-                    <div class="form-group col-sx-12 col-sm-6 col-md-6 col-lg-6" >
-                      <label for="ngay">ngày</label>
+                    <div
+                      class="form-group col-sx-12 col-sm-6 col-md-6 col-lg-6"
+                    >
+                      <label for="tk_vt">TK vật tư</label>
                       <div class="input-group">
-                        <input type="date" id="ngay"   class="form-control" />
+                        <input type="text" name="tk_vt" class="form-control" />
                         <div class="input-group-btn">
                           <button class="btn btn-default" type="submit">
                             <i class="glyphicon glyphicon-search"></i>
@@ -303,10 +374,12 @@
                         </div>
                       </div>
                     </div>
-                    <div class="form-group col-sx-12 col-sm-6 col-md-6 col-lg-6" >
-                      <label for="sdt">sdt</label>
+                    <div
+                      class="form-group col-sx-12 col-sm-6 col-md-6 col-lg-6"
+                    >
+                      <label for="tk_cl">TK chênh lệch</label>
                       <div class="input-group">
-                        <input type="number" id="sdt" class="form-control" />
+                        <input type="text" name="tk_cl" class="form-control" />
                         <div class="input-group-btn">
                           <button class="btn btn-default" type="submit">
                             <i class="glyphicon glyphicon-search"></i>
@@ -314,10 +387,63 @@
                         </div>
                       </div>
                     </div>
-                    <div class="form-group col-sx-12 col-sm-6 col-md-6 col-lg-6" >
-                      <label for="tien">tien</label>
+                  </div>
+                  <div class="row">
+                    <div
+                      class="form-group col-sx-12 col-sm-6 col-md-6 col-lg-6"
+                    >
+                      <label for="tk_gv">TK giá vốn</label>
                       <div class="input-group">
-                        <input type="number" id="tien"   class="form-control" />
+                        <input type="text" name="tk_gv" class="form-control" />
+                        <div class="input-group-btn">
+                          <button class="btn btn-default" type="submit">
+                            <i class="glyphicon glyphicon-search"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="form-group col-sx-12 col-sm-6 col-md-6 col-lg-6"
+                    >
+                      <label for="tk_gvnb">TK giá vốn nội bộ</label>
+                      <div class="input-group">
+                        <input
+                          type="text"
+                          name="tk_gvnb"
+                          class="form-control"
+                        />
+                        <div class="input-group-btn">
+                          <button class="btn btn-default" type="submit">
+                            <i class="glyphicon glyphicon-search"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div
+                      class="form-group col-sx-12 col-sm-6 col-md-6 col-lg-6"
+                    >
+                      <label for="tk_dt">TK doanh thu</label>
+                      <div class="input-group">
+                        <input type="text" name="tk_dt" class="form-control" />
+                        <div class="input-group-btn">
+                          <button class="btn btn-default" type="submit">
+                            <i class="glyphicon glyphicon-search"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="form-group col-sx-12 col-sm-6 col-md-6 col-lg-6"
+                    >
+                      <label for="tk_dtnb">TK doanh thu nội bộ</label>
+                      <div class="input-group">
+                        <input
+                          type="text"
+                          name="tk_dtnb"
+                          class="form-control"
+                        />
                         <div class="input-group-btn">
                           <button class="btn btn-default" type="submit">
                             <i class="glyphicon glyphicon-search"></i>
@@ -330,8 +456,14 @@
               </div>
             </div>
             <div class="modal-footer" id="modal-footer">
-              <button type="button" class="btn btn-primary" onclick = "SaveData()" >Lưu</button>
-              <button type="button"  class="btn btn-default"  data-dismiss="modal"  >Đóng</button>
+              <button type="button" class="btn btn-primary" onclick = "AddData()" >Lưu</button>
+              <button
+                type="button"
+                class="btn btn-default"
+                data-dismiss="modal"
+              >
+                Đóng
+              </button>
             </div>
           </div>
         </div>
