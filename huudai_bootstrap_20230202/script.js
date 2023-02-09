@@ -10,7 +10,7 @@ var ds_vt = [{
     quan_ly_serial:"Không quản lý",
     nhom1:"NL",
     nhom2:"NDs",
-    ngay:"2-3-2023" ,
+    ngay:"2023-02-20" ,
     sdt:"02154",
     tien: 1356.5
 },
@@ -24,7 +24,7 @@ var ds_vt = [{
     quan_ly_serial:"Có quản lý",
     nhom1:"VT",
     nhom2:"NDs",
-    ngay:"2-3-2023",
+    ngay:"2023-02-20",
     sdt:"02154",
     tien: 1356.5
 }];
@@ -33,11 +33,12 @@ document.getElementById("modal_title").innerHTML ="Thêm mới vật tư"
 function LoadData(){
     var hien_thi = '';
     for(var i=0;i<ds_vt.length;i++){
-        hien_thi += "<tr id ='ln' onclick ='choose( &#39"+ ds_vt[i].ma_vt +"&#39)' ondblclick = 'EditData( &#39"+ ds_vt[i].ma_vt +"&#39)'> <td>" +parseInt(i+1) +"</td> <td><input type = 'checkbox'> </td><td> <button onclick = 'DeleteData(&#39"+ds_vt[i].ma_vt+"&#39)' type='button' class='fa fa-trash-o color-red'></button> </td> <td>" 
+        hien_thi += "<tr id ='ln' onclick ='choose( &#39"+ ds_vt[i].ma_vt +"&#39)' ondblclick = 'EditData( &#39"+ ds_vt[i].ma_vt +"&#39)'> <td>" +parseInt(i+1) 
+        +"</td> <td><input type = 'checkbox'> </td><td> <button onclick = 'DeleteData(&#39"+ds_vt[i].ma_vt+"&#39)' type='button' class='fa fa-trash-o color-red'></button> </td> <td>" 
         +ds_vt[i].ma_vt +"</td><td>" + ds_vt[i].ten_vt +"</td> <td>"
                     +ds_vt[i].dvt+"</td><td>"+ds_vt[i].theo_doi_ton_kho+"</td> <td>"+ds_vt[i].cach_tinh_gia+"</td><td>"+
                     ds_vt[i].quan_ly_lo+"</td><td>"+ds_vt[i].quan_ly_serial+"</td><td>"+ds_vt[i].nhom1+"</td><td>"+ds_vt[i].nhom2+"</td><td>"+
-                    ds_vt[i].ngay+"</td><td>"+ds_vt[i].sdt+"</td><td>"+ds_vt[i].tien.toString()+"</td></tr>";
+                    ds_vt[i].ngay+"</td><td>"+ds_vt[i].sdt+"</td><td>"+ds_vt[i].tien+"</td></tr>";
     }
     document.getElementById("danh_sach").innerHTML= hien_thi;
 };
