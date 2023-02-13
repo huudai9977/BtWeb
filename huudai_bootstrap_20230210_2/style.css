@@ -1,0 +1,93 @@
+﻿
+.header {
+    height: 60px;
+    background-color: #005E9C;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 20px;
+    display: flex;
+}
+
+.user {
+    color: #fff;
+}
+
+.menu {
+    height: 40px;
+    background-color: #EEEEEE;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 20px;
+}
+
+.title {
+    color: #888888;
+    font-size: 18px;
+}
+
+.list-icon ul{
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list-icon li {
+    color: #005E9C;
+    padding: 10px;
+}
+
+.list-icon button {
+    border: none;
+}
+
+.color-red {
+    color: red;
+}
+
+.content {
+    height: calc(100vh - 50px - 50px);
+    display: flex;
+    flex-direction: column;
+}
+
+.pd-h-1 {
+    padding: 0px 1px;
+}
+
+.content-detail {
+    padding: 1px;
+}
+
+.modal-title {
+    color: #005E9C;
+    font-weight: bold;
+}
+
+.tab-content {
+    padding: 5px 5px 0px 15px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.form-group{
+    margin-bottom: 5px;
+}
+
+.main #myModal .modal-dialog .modal-content #modal-footer{
+    padding: 5px !important; 
+    background-color: #60bff23b;
+}
+.btn-primary{
+    text-align: center;
+    padding: 0px 10px;
+}
+.btn-default{
+    text-align: center;
+    padding: 0px 10px;
+}
+#ln:active{
+    background-color:#a09d9d;
+}

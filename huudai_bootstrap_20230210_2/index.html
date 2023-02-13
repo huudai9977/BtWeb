@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="font/font-awesome.css" />
+    <script src="bootstrap/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+    <title>3SERP</title>
+  </head>
+  <body>
+    <div class="main">
+      <div class="header" >
+        <img src="images/logo_menu.png" alt="Logo" />
+      </div>
+      <div class="menu">
+        <div class="title">INVOICE & PACKING LIST</div>
+      </div>
+      <div class="content">
+        <ul class="nav nav-tabs">
+          <li class="active">
+            <a data-toggle="tab" href="#information">Thông tin chính</a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div id="information" class="tab-pane fade in active">
+            <div class="row">
+              <div class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4" >  
+                <div class="row">
+                  <label for="ten_vt">Giao dịch</label>
+                <input type="text" class="form-control" id="ten_vt" />
+                </div>
+                <div class="row">
+                  <label for="ten_vt">Mã khách hàng</label>
+                <input type="text" class="form-control" id="ten_vt" />
+                </div>
+                <div class="row">
+                  <div class="form-group col-sx-12 col-sm-3 col-md-3 col-lg-3" style="width: 50%;">
+                    <label for="dvt">Người liên lạc</label>
+                    <div class="input-group">
+                      <input type="text" name="dvt" class="form-control" id ="dvt"  />
+                    </div>
+                  </div>
+                  <div class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4" style="width: 50%;">
+                    <label for="dvt">Điện thoại</label>
+                    <div class="input-group">
+                      <input type="text" name="dvt" class="form-control" id ="dvt" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4">
+                <div class="row" >
+                  <label for="ten_vt">Diễn giải</label>
+                <input type="text" class="form-control" id="ten_vt" />
+                </div>
+                <div class="row" >
+                </div>
+                <div class="row">
+                  <div class="form-group col-sx-12 col-sm-3 col-md-3 col-lg-3" style="width: 50%;">
+                    <label for="dvt">Tỉnh/TP</label>
+                    <div class="input-group">
+                      <input type="text" name="dvt" class="form-control" id ="dvt"  />
+                    </div>
+                  </div>
+                  <div class="form-group col-sx-12 col-sm-3 col-md-3 col-lg-3" style="width: 50%;">
+                    <label for="dvt">Người liên lạc</label>
+                    <div class="input-group">
+                      <input type="text" name="dvt" class="form-control" id ="dvt"  />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-sx-12 col-sm-3 col-md-3 col-lg-3">
+                <label for="dvt">Số CT</label>
+                <div class="input-group">
+                  <input type="text" name="dvt" class="form-control" id ="dvt" />
+                  <div class="input-group-btn">
+                    <button class="btn btn-default" type="submit">
+                      <i class="glyphicon glyphicon-search"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ul class="nav nav-tabs">
+          <li class="active">
+            <a data-toggle="tab" href="#chitiet">Chi tiết</a>
+          </li>
+          <li>
+            <a data-toggle="tab" href="#tonghop">Tổng hợp</a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div id="chitiet" class="tab-pane fade in active">
+            <div class="content-detail table-responsive">
+              <table class="table table-bordered table-hover" >
+                <thead>
+                  <tr>
+                    <th><button class="btn btn-primary"></button></th>
+                    <th ><button  type="button" class='fa fa-trash-o color-red'></button></th>
+                    <th >Mã vật tư</th>
+                    <th>Tên vật tư</th>
+                    <th>DVT*</th>
+                    <th>Hàng KM</th>
+                    <th>Mã Kho</th>
+                    <th>Số lượng</th>
+                    <th>Giá bán</th>
+                    <th>Tiền</th>
+                </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td><button  type="button" class='fa fa-trash-o color-red'></button></td>
+                    <td>M001</td>
+                    <td>Vật tư test 0001</td>
+                    <td>CAI</td>
+                    <td><input type = 'checkbox'></td>
+                    <td>MFH</td>
+                    <td>1234</td>
+                    <td>232123</td>
+                    <td>31231231321</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div id="tonghop" class="tab-pane fade">
+            <div class="content-detail table-responsive">
+              <table class="table table-bordered table-hover" >
+                <thead>
+                  <tr>
+                    <th><button class="btn btn-primary"></button></th>
+                    <th ><button  type="button" class='fa fa-trash-o color-red'></button></th>
+                    <th >Mã vật tư</th>
+                    <th>Tên vật tư</th>
+                    <th>DVT*</th>
+                    <th>Số lượng</th>
+                    <th>Giá bán</th>
+                </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td><button  type="button" class='fa fa-trash-o color-red'></button></td>
+                    <td>M001</td>
+                    <td>Vật tư test 0001</td>
+                    <td>CAI</td>
+                    <td>1234</td>
+                    <td>232123</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        
+    </div>
+
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

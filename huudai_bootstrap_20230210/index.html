@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="font/font-awesome.css" />
+    <script src="bootstrap/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+    <title>3SERP</title>
+  </head>
+  <body>
+    <div class="main">
+      <div class="header">
+        <img src="images/logo_menu.png" alt="Logo" />
+        <div class="user">Hồ hữu đại</div>
+      </div>
+      <div class="menu">
+        <div class="title">Kết quả đánh giá đài tạo</div>
+        <div class="list-icon">
+          <ul>
+            <li><button type="button" class="fa fa-refresh" onclick = "reset()" ></button></li>
+            <li>
+              <button type="button" class="fa fa-plus" data-toggle="modal" data-target="#myModal" onclick = "FormAdd()"></button>
+            </li>
+            <li><button type="button" class="fa fa-edit" onclick = "EditData('')"></button></li>
+            <li><button type="button" class="fa fa-copy" > </button></li>
+            <li>
+              <button type="button" class="fa fa-trash-o color-red" onclick = "DeleteData('')" ></button>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="content">
+        <div class="input-group pd-h-1">
+          <input type="text" name="text-search" class="form-control" placeholder="Nhập thông tin tìm kiếm" id ="search_key"/>
+          <div class="input-group-btn">
+            <button id="drop" type="button" class="btn btn-default dropdown-toggle"
+                                    data-toggle="collapse" title="Thêm điều kiện lọc"
+                                    data-parent="#accordion" href="collapse.html#collapseSearch"
+                                    aria-expanded="false">
+                                <span class="caret"></span>
+            </button>
+            <button class="btn btn-primary" type="submit">
+              <i class="glyphicon glyphicon-search"></i>
+            </button>
+          </div>
+        </div>
+        <div class="panel-collapse collapse" id="collapseSearch" style="margin-top: -3px">
+          <div class="panel-body" style="border: 2px solid #f3f3f3">
+              <div class="col-lg-3 col-md-3 col-xs-6">
+                  <div class="form-group">
+                      <label for="title" class="control-label">Khóa đào tạo</label>
+                      <select class="form-control" id="khoadaotao">
+                        <option value="all">Tất cả</option>
+                        <option value="no">Có</option>
+                      </select>
+                  </div>
+              </div>
+
+              <div class="col-lg-3 col-md-3 col-xs-6">
+                  <div class="form-group">
+                      <label for="title" class="control-label">Ngày đánh giá</label>
+                      <input type="date" id="ngaydanhgia"   class="form-control" />
+                  </div>
+              </div>
+              <div class="col-lg-3 col-md-3 col-xs-6">
+                  <div class="form-group">
+                      <label for="title" class="control-label">Bộ phận</label>
+                      <select class="form-control" id="khoadaotao">
+                        <option value="all">Tất cả</option>
+                        <option value="no">Có</option>
+                      </select>
+                  </div>
+              </div>
+              <div class="col-lg-3 col-md-3 col-xs-6">
+                <div class="form-group">
+                    <label for="title" class="control-label">Tổng điểm từ</label>
+                    <input type="number" id="tien"   class="form-control" />
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-xs-6">
+              <div class="form-group">
+                  <label for="title" class="control-label">Tổng điếm đến</label>
+                  <input type="number" id="tien"   class="form-control" />
+              </div>
+          </div>
+
+          </div>
+      </div>
+      <div style="padding: 5px 0">
+          <span>Tổng số bản ghi: </span> <span id="ds_khoa_dt_length"></span>
+      </div>
+        <div class="content-detail table-responsive">
+          <table class="table table-bordered table-hover" >
+            <thead>
+              <tr>
+                <th class="center">STT</th>
+                <th >Chọn</th>
+                <th >Sửa</th>
+                <th >Xóa</th>
+                <th>Mã khóa đào tạo</th>
+                <th>Tên khóa đào tạo</th>
+                <th>Tên nhân viên</th>
+                <th>Bộ phận</th>
+                <th>Ngày đánh giá</th>
+                <th>Tên người hướng dẫn</th>
+                <th>Tổng điểm</th>
+                <th>Xếp loại</th>
+            </tr>
+            </thead>
+            <tbody id="danh_sach">
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;
+              </button>
+              <h4 class="modal-title text-center" id ="modal_title" ></h4>
+            </div>
+            <div class="modal-body">
+              <div class="tab-content">
+                <div id="information" class="tab-pane fade in active">
+                  <div class="row">
+                    <input style="display:none;" type="text" class="form-control" id="keykdt" />
+                    <div class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4" >
+                      <label for="ma_kdt">Khóa đào tạo</label>
+                      <select class="form-control" id="ma_kdt">
+                        <option value="agl">agl</option>
+                        <option value="html">html</option>
+                        <option value="orther">orther</option>
+                        <option value="js">js</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4">
+                      <label for="ma_nv">Mã nhân viên</label>
+                      <input type="text" class="form-control" id="ma_nv" />
+                    </div>
+                    <div class="form-group col-sx-12 col-sm-3 col-md-3 col-lg-3">
+                      <label for="ngay_dg">Ngày đánh giá</label>
+                      <input type="date" name="ngay_dg" class="form-control" id ="ngay_dg" />
+                      
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4">
+                      <label for="ma_vt_phu">Từ ngày</label>
+                      <input type="date" class="form-control" id="frdate" />
+                    </div>
+                    <div class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4">
+                      <label for="ten_vt2">Tên nhân viên</label>
+                      <input type="text" class="form-control" id="ten_nv" />
+                    </div>
+                    <div  class="form-group col-sx-12 col-sm-3 col-md-3 col-lg-3" >
+                      <label for="sdt">Số điện thoại</label>
+                      <input type="number"  name="ds_dvcs" class="form-control" id ="sdt"   />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4"   >
+                      <label for="ma_vach">Đến ngày</label>
+                      <input type="date" class="form-control" id="todate" />
+                    </div>
+                    <div  class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4"      >
+                      <label for="model">Bộ phận</label>
+                      <select class="form-control" id="bp">
+                        <option value="RD">RD</option>
+                        <option value="DA">DA</option>
+                      </select>
+                    </div>
+                    <div  class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4"      >
+                      <label for="model">Tổng điểm</label>
+                      <input type="number"  name="ds_dvcs" class="form-control" id ="diem"   />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div  class="form-group col-sx-12 col-sm-3 col-md-3 col-lg-3"    >
+                      <label for="loai_vt">Người hướng dẫn</label>
+                      <input type="text" class="form-control" id="ng_hd" />
+                    </div>
+                    <div  class="form-group col-sx-12 col-sm-3 col-md-3 col-lg-3"    >
+                      <label for="loai_vt">Xếp loại</label>
+                      <select class="form-control" id="xl">
+                        <option value="tot">tot</option>
+                        <option value="kha">kha</option>
+                        <option value="TB">TB</option>
+                      </select>
+                    </div>
+                  </div>
+              </div>
+            </div>
+            <div class="modal-footer" id="modal-footer">
+              <button type="button" class="btn btn-primary" onclick = "SaveData()" >Lưu</button>
+              <button type="button"  class="btn btn-default"  data-dismiss="modal"  >Đóng</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
