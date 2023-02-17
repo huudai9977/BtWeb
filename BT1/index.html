@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="font/font-awesome.css" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="bootstrap/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+    <script src="angular.min.js"></script>
+    <title>3SERP</title>
+  </head>
+  <body ng-controller="myController">
+    <div class="main">
+      <div class="header">
+        <img src="images/logo_menu.png" alt="Logo" />
+      </div>
+      <div class="menu">
+        <div class="title">Kết quả đánh giá đào tạo</div>
+        <div class="list-icon">
+          <ul>
+            <li>
+              <button
+                type="button"
+                class="fa fa-refresh"
+                onclick="loadData()"
+              ></button>
+            </li>
+            <li>
+              <button
+                type="button"
+                class="fa fa-plus"
+                id="add"
+                data-toggle="modal"
+                data-target="#myModal"
+              ></button>
+            </li>
+            <li>
+              <button type="button" class="fa fa-edit" id="edit"></button>
+            </li>
+            <li><button type="button" class="fa fa-copy"></button></li>
+            <li>
+              <button
+                type="button"
+                class="fa fa-trash-o color-red"
+                id="delete"
+              ></button>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="content">
+        <div class="input-group pd-h-1">
+          <input
+            type="text"
+            id="text-search"
+            class="form-control"
+            placeholder="Nhập thông tin tìm kiếm"
+            ng-model="search"
+          />
+          <div class="input-group-btn">
+            <button class="btn btn-primary" type="submit" id="btn-search">
+              <i class="glyphicon glyphicon-search"></i>
+            </button>
+          </div>
+        </div>
+        <div class="total">
+          <span>Tổng số bản ghi:<span ng-bind="ds_nv.length"> </span>
+        </div>
+        <div class="content-detail table-responsive">
+          <table class="table table-bordered table-hover">
+            <thead>
+              <th class="center">STT</th>
+              <th class="center">Chọn</th>
+              <th class="center">Sửa</th>
+              <th class="center">Xóa</th>
+              <th class="center">Mã khóa đào tạo</th>
+              <th class="center">Tên khóa đào tạo</th>
+              <th class="center">Tên nhân viên</th>
+              <th class="center">Bộ phận</th>
+              <th class="center">Ngày đánh giá</th>
+              <th class="center">Tên người hướng dẫn</th>
+              <th class="center">Tổng điểm</th>
+              <th class="center">Xếp loại</th>
+            </thead>
+            <tbody id="ds_nv">
+              <tr ng-repeat="item in ds_nv | filter: search | orderBy: '-khoa_dt'" ng-style ="{background : item.tong_diem  > 5 ? 'yellow' : 'red'}">
+                <td class='center'> {{$index + 1}}</td>
+                <td class='center'><input type='checkbox'  onclick='clickCheckBox(item.ma_nv)'/></td>
+                <td class='center'><button type='button' class='fa fa-pencil color-blue' onclick='editSelected(item.ma_nv)'></button></td>
+                <td class='center'><button type='button' class='fa fa-trash-o color-red' onclick='deleteData(item.ma_nv)'></button></td>
+                <td ng-bind="item.khoa_dt"></td>
+                <td ng-bind="getKhoaDT(item.khoa_dt)"></td>
+                <td ng-bind="item.ten_nv"></td>
+                <td ng-bind="item.bo_phan"></td>
+                <td ng-bind="item.ngay_dg | date:'dd/MM/yyyy'"></td>
+                <td ng-bind="item.nguoi_hd"></td>
+                <td ng-bind="item.tong_diem"  ></td>
+                <td ng-bind="getKhoaDT(item.tong_diem)"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="myModal" class="modal fade">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">
+                &times;
+              </button>
+              <h4 class="modal-title text-center" id="modal-title">
+                Thêm thông tin nhân viên
+              </h4>
+            </div>
+            <div class="modal-body">
+              <div class="tab-content">
+                <div id="information">
+                  <div class="row">
+                    <div
+                      class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4"
+                    >
+                      <label for="khoa_dt"
+                        >Khóa đào tạo <span class="color-red">*</span></label
+                      >
+                      <select class="form-control" id="khoa_dt" ng-model="nhan_vien.khoa_dt">
+                        <option value=""></option>
+                        <option value="HTML_CSS">HTML_CSS</option>
+                        <option value="ANGULARJS">ANGULARJS</option>
+                        <option value="OTHER">OTHER</option>
+                      </select>
+                    </div>
+                    <div
+                      class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4"
+                    >
+                      <label for="ma_nv"
+                        >Mã nhân viên <span class="color-red">*</span></label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="ma_nv"
+                        ng-model="nhan_vien.ma_nv"
+                        placeholder="MÃ NHÂN VIÊN"
+                      />
+                    </div>
+                    <div
+                      class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4"
+                    >
+                      <label for="ngay_dg"
+                        >Ngày đánh giá <span class="color-red">*</span></label
+                      >
+                      <input type="date" class="form-control" id="ngay_dg" ng-model="nhan_vien.ngay_dg"/>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div
+                      class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4"
+                    >
+                      <label for="tu_ngay">Từ ngày</label>
+                      <input type="date" class="form-control" id="tu_ngay" ng-model="nhan_vien.tu_ngay"/>
+                    </div>
+                    <div
+                      class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4"
+                    >
+                      <label for="ten_nv"
+                        >Tên nhân viên<span class="color-red">*</span></label
+                      >
+                      <input
+                        type="text"
+                        placeholder="Tên nhân viên"
+                        class="form-control"
+                        ng-model="nhan_vien.ten_nv"
+                        id="ten_nv"
+                      />
+                    </div>
+                    <div
+                      class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4"
+                    >
+                      <label for="sdt">Số điện thoại</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        ng-model="nhan_vien.sdt"
+                        placeholder="Điện thoại"
+                        id="sdt"
+                      />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div
+                      class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4"
+                    >
+                      <label for="den_ngay">Đến ngày</label>
+                      <input type="date" class="form-control" id="den_ngay" ng-model="nhan_vien.den_ngay"/>
+                    </div>
+                    <div
+                      class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4"
+                    >
+                      <label for="bo_phan">Bộ phận</label>
+                      <select class="form-control" id="bo_phan" ng-model="nhan_vien.bo_phan">
+                        <option value=""></option>
+                        <option value="Dự án">Dự án</option>
+                        <option value="R&D">R&D</option>
+                        <option value="Sale">Sale</option>
+                      </select>
+                    </div>
+                    <div
+                      class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4"
+                    >
+                      <label for="tong_diem">Tổng điểm</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="tong_diem"
+                        placeholder="Tổng điểm"
+                        ng-model="nhan_vien.tong_diem"
+                      />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div
+                      class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4"
+                    >
+                      <label for="nguoi_hd">Người hướng dẫn</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="nguoi_hd"
+                        placeholder="Người hướng dẫn"
+                      />
+                    </div>
+                    <div
+                      class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4"
+                    >
+                      <label for="xep_loai">Xếp loại</label>
+                      <select class="form-control" id="xep_loai">
+                        <option value=""></option>
+                        <option value="Tốt">Tốt</option>
+                        <option value="Khá">Khá</option>
+                        <option value="Trung bình">Trung bình</option>
+                        <option value="Không xếp loại">Không xếp loại</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" ng-click="addData()" id="save">
+                Lưu
+              </button>
+              <button type="button" class="btn btn-default" id="saveAndAdd">
+                Lưu và Thêm
+              </button>
+              <button
+                type="button"
+                class="btn btn-warning"
+                data-dismiss="modal"
+              >
+                Đóng
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
