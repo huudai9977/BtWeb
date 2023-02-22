@@ -1,0 +1,395 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/Content/font/font-awesome.css" />
+    <link rel="stylesheet" href="~/Content/style.css" />
+    <script src="~/Content/bootstrap/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="~/Content/bootstrap/css/bootstrap.min.css" />
+    <script src="~/Scripts/angular.min.js"></script>
+    <title>3SERP</title>
+</head>
+<body ng-controller="myController">
+    <div class="main">
+        <div class="header">
+            <img src="~/Content/images/logo_menu.png" alt="Logo" />
+        </div>
+        <div class="menu">
+            <div class="title">Kết quả đánh giá đào tạo</div>
+            <div class="list-icon">
+                <ul>
+                    <li>
+                        <button type="button"
+                                class="fa fa-refresh"
+                                ng-click="Reload()"></button>
+                    </li>
+                    <li>
+                        <button type="button"
+                                class="fa fa-plus"
+                                ng-click="Add()" ></button>
+                    </li>
+                    <li>
+                        <button type="button" class="fa fa-edit" ng-click="Edit(itemSelected)"></button>
+                    </li>
+                    <li><button type="button" class="fa fa-copy"></button></li>
+                    <li>
+                        <button type="button"
+                                class="fa fa-trash-o color-red"
+                                ng-click="Delete(indexSelected)"></button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="content">
+            <!--search--->
+            <div class="search_in_list">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Nhập thông tin tìm kiếm"
+                           name="search" ng-model="seachDynamic.keyword" ng-enter="Search(seachDynamic)">
+                    <div class="input-group-btn">
+                        <div class="btn-group" role="group">
+                            <div class="dropdown dropdown-lg ">
+                                <button id="drop" type="button" class="btn btn-default dropdown-toggle"
+                                        data-toggle="collapse" title="Thêm điều kiện lọc"
+                                        data-parent="#accordion" href="collapse.html#collapseSearch"
+                                        aria-expanded="false">
+                                    <span class="caret"></span>
+                                </button>
+                                <button class="btn btn-primary" type="submit" ng-click="Search(seachDynamic)"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-collapse collapse" id="collapseSearch" style="margin-top: -3px">
+                <div class="panel-body" style="border: 2px solid #f3f3f3">
+                    <div class="col-lg-3 col-md-3 col-xs-6">
+                        <div class="form-group">
+                            <label for="title" class="control-label">Loại bán</label>
+                            <select class="form-control" ng-model="seachDynamic.loaiban"
+                                    ng-options="item as item.ten_loai_ban for item in ds_loaiban"></select>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-xs-6">
+                        <div class="form-group">
+                            <label for="title" class="control-label">Loại bảng giá</label>
+                            <select class="form-control" ng-model="seachDynamic.loaibanggia"
+                                    ng-options="item as item.ten_loai_bang_gia for item in ds_loaibanggia"></select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-6">
+                        <div class="form-group">
+                            <label for="title" class="control-label">Trạng thái</label>
+                            <select class="form-control" ng-model="seachDynamic.trangthai"
+                                    ng-options="item as item.statusname for item in ds_status"></select>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div style="padding: 5px 0">
+                <span>Tổng số bản ghi: </span> <span ng-bind="ds_banggia.length"></span>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <tr>
+                        <th class="center" width="50"> STT</th>
+                        <th class="center" width="50"> Chọn</th>
+                        <th class="center" width="50"> Sửa</th>
+                        <th class="center" width="50"> Xóa</th>
+                        <th class="center"> Mã bảng giá </th>
+                        <th class="center"> Tên bảng giá </th>
+                        <th class="center"> Loại bán</th>
+                        <th class="center"> Loại bảng giá </th>
+                        <th class="center"> Trạng thái </th>
+
+                    </tr>
+                    <tr ng-repeat="item in ds_banggia track by $index"
+                        ng-class="item.checked ? 'lavender' :''"
+                        ng-click="OnClick(item, $index)">
+                        <td ng-bind="$index + 1" align="center"></td>
+                        <td align="center">
+                            <input type="checkbox" ng-model="item.checked" ng-click="OnClick(item, $index)" />
+                        </td>
+                        <td align="center">
+                            <span>
+                                <a data-toggle="modal" ng-click="Edit(item)">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                            </span>
+                        </td>
+                        <td align="center">
+                            <span>
+                                <a href="" ng-click="Delete($index)">
+                                    <i class="fa fa-trash red"></i>
+                                </a>
+                            </span>
+                        </td>
+                        <td ng-bind="item.ma_bang_gia"></td>
+                        <td ng-bind="item.ten_bang_gia" class="elipsis"></td>
+                        <td ng-bind="item.ten_loai_ban" class="elipsis"></td>
+                        <td ng-bind="item.ten_loai_bang_gia" class="elipsis"></td>
+                        <td ng-bind="item.statusname" class="elipsis"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div id="addItemModal" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-lg">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" ng-click="Close('addItemModal')">&times;</button>
+                        <h4 class="modal-title" ng-if="add_yn" >Thêm bảng giá</h4>
+                        <h4 class="modal-title" ng-if="!add_yn" >Sửa bảng giá</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="tab-content">
+                            <div id="information">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-6 col-md-2">
+                                        <div class="form-group">
+                                            <label for="title" class="control-label">Mã bảng giá <span class="red">*</span></label>
+                                            <input type="text" ng-model="ctdm.ma_bang_gia"
+                                                   class="form-control " name="ma_bang_gia"  />
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-4">
+                                        <div class="form-group">
+                                            <label for="title" class="control-label">Tên bảng giá<span class="red">*</span></label>
+                                            <input type="text" ng-model="ctdm.ten_bang_gia"
+                                                   class="form-control" name="ten_bang_gia"  />
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-12 col-sm-6 col-md-2">
+                                        <div class="form-group">
+                                            <label for="title" class="control-label">Loại bán</label>
+                                            <select class="form-control" ng-model="ctdm.loaiban" ng-options="item as item.ten_loai_ban for item in ds_loaiban"
+                                                    ng-change=" changecombobox('loaiban', ctdm.loaiban)"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-2">
+                                        <div class="form-group">
+                                            <label for="title" class="control-label">Loại bảng giá</label>
+                                            <select class="form-control" ng-model="ctdm.loaibanggia"
+                                                    ng-options="item as item.ten_loai_bang_gia for item in ds_loaibanggia"
+                                                    ng-change=" changecombobox('loaibanggia', ctdm.loaibanggia)"></select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-12 col-sm-6 col-md-2">
+                                        <div class="form-group">
+                                            <label for="title" class="control-label">Trạng thái</label>
+                                            <select class="form-control" ng-model="ctdm.trangthai"
+                                                    ng-options="item as item.statusname for item in ds_status"></select>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-hover">
+                                                <tr>
+                                                    <th class="center" width="50">
+                                                        <a href="" ng-click="AddCT()">
+                                                            <i class="fa fa-plus"></i>
+                                                        </a>
+                                                    </th>
+                                                    <th class="center" width="50"> Sửa</th>
+                                                    <th class="center" width="50"> Xóa</th>
+                                                    <th class="center"> Mã vật tư </th>
+                                                    <th class="center"> Tên vật tư </th>
+                                                    <th class="center"> Loại áp dụng </th>
+                                                    <th class="center"> Nhóm khách </th>
+                                                    <th class="center"> Mã khách </th>
+                                                    <th class="center"> Từ ngày </th>
+                                                    <th class="center" ng-if="ctdm.loaibanggia.ma_loai_bang_gia == '3'"> Từ giờ </th>
+                                                    <th class="center"> Đến ngày </th>
+                                                    <th class="center" ng-if="ctdm.loaibanggia.ma_loai_bang_gia == '3'"> Đến giờ </th>
+                                                    <th class="center"> Số lượng </th>
+                                                    <th class="center"> Giá trước VAT </th>
+                                                    <th class="center"> Mã thuế </th>
+                                                    <th class="center"> Thuế suất </th>
+                                                    <th class="center"> Giá sau VAT </th>
+                                                </tr>
+                                                <tr ng-repeat="item in ctdm.ds_vattu track by $index"
+                                                    ng-class="item.checked ? 'lavender' :''">
+                                                    <td ng-bind="$index + 1" align="center"></td>
+
+                                                    <td align="center">
+                                                        <span>
+                                                            <a data-toggle="modal" ng-click="EditCT(item)">
+                                                                <i class="fa fa-pencil"></i>
+                                                            </a>
+                                                        </span>
+                                                    </td>
+                                                    <td align="center">
+                                                        <span>
+                                                            <a href="" ng-click="DeleteCT($index)">
+                                                                <i class="fa fa-trash red"></i>
+                                                            </a>
+                                                        </span>
+                                                    </td>
+                                                    <td ng-bind="item.ma_vt"></td>
+                                                    <td ng-bind="item.ten_vt" class="elipsis"></td>
+                                                    <td ng-bind="item.ten_loai_ad" class="elipsis"></td>
+                                                    <td ng-bind="item.ma_nh" class="elipsis"></td>
+                                                    <td ng-bind="item.ma_kh" class="elipsis"></td>
+                                                    <td ng-bind="item.tu_ngay | date:'dd/MM/yyyy'" class="elipsis"></td>
+                                                    <td ng-bind="item.tu_gio" class="elipsis" ng-if="ctdm.loaibanggia.ma_loai_bang_gia == '3'"></td>
+                                                    <td ng-bind="item.den_ngay | date:'dd/MM/yyyy'" class="elipsis"></td>
+                                                    <td ng-bind="item.den_gio" class="elipsis" ng-if="ctdm.loaibanggia.ma_loai_bang_gia == '3'"></td>
+                                                    <td ng-bind="item.sl_min | number:2"></td>
+                                                    <td ng-bind="item.gia0 | number:2"></td>
+                                                    <td ng-bind="item.ma_thue" class="elipsis"></td>
+                                                    <td ng-bind="item.thue_suat | number:2"></td>
+                                                    <td ng-bind="item.gia | number:2" class="elipsis"></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" ng-click="Save(ctdm)">Lưu</button>
+                        <button type="submit" class="btn btn-default" ng-click="Save(ctdm, true)" ng-if="add_yn">Lưu và Thêm</button>
+                        <button type="button" class="btn btn-warning" data-dismiss="modal" ng-click="Close('addItemModal')">Đóng</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="addItemCT" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-md">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" ng-click="CloseCT('addItemCT')">&times;</button>
+                        <h4 class="modal-title" ng-if="addct_yn">Thêm vật tư</h4>
+                        <h4 class="modal-title" ng-if="!addct_yn">Sửa vật tư</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="tab-content">
+                            <div id="information">
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="title" class="control-label">Mã vật tư<span class="red">*</span></label>
+                                            <input type="text" class="form-control" ng-model="ctdmct.ma_vt" name="ma_vt" />
+
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="title" class="control-label">Tên vật tư<span class="red">*</span></label>
+                                            <input type="text" ng-model="ctdmct.ten_vt"
+                                                   class="form-control" name="ten_vt" />
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="title" class="control-label">Loại áp dụng</label>
+                                            <select class="form-control" ng-model="ctdmct.loai_ad"
+                                                    ng-options="item as item.ten_loai_ad for item in ds_loaiad"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-md-6" ng-if="ctdmct.loai_ad.ma_loai_ad == '2'">
+                                        <div class="form-group">
+                                            <label for="title" class="control-label">Mã nhóm KH <span class="red">*</span></label>
+                                            <input type="text" class="form-control" ng-model="ctdmct.ma_nh" name="ma_nh" />
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-md-6" ng-if="ctdmct.loai_ad.ma_loai_ad == '1'">
+                                        <div class="form-group">
+                                            <label for="title" class="control-label">Mã khách hàng <span class="red">*</span></label>
+                                            <input type="text" class="form-control" ng-model="ctdmct.ma_kh" name="ma_kh" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-3">
+                                        <div class="form-group">
+                                            <label for="title" class="control-label">Từ ngày <span class="red">*</span></label>
+                                            <input type="date" class="form-control" ng-model="ctdmct.tu_ngay" />
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-md-3">
+                                        <div class="form-group">
+                                            <label for="title" class="control-label">Đến ngày <span class="red">*</span></label>
+                                            <input type="date" class="form-control" ng-model="ctdmct.den_ngay" />
+
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-md-3" ng-if="ctdm.loaibanggia.ma_loai_bang_gia == '3'">
+                                        <div class="form-group">
+                                            <label for="title" class="control-label">Từ giờ <span class="red">*</span></label>
+                                            <input type="time" class="form-control" ng-model="ctdmct.tu_gio" />
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-md-3" ng-if="ctdm.loaibanggia.ma_loai_bang_gia == '3'">
+                                        <div class="form-group">
+                                            <label for="title" class="control-label">Đến giờ <span class="red">*</span></label>
+                                            <input type="time" class="form-control" ng-model="ctdmct.den_gio" placeholder="HH:mm:ss" />
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-3">
+                                        <div class="form-group">
+                                            <label for="title" class="control-label">Số lượng min <span class="red">*</span></label>
+                                            <input type="number" class="form-control" ng-model="ctdmct.sl_min">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-md-3">
+                                        <div class="form-group">
+                                            <label for="title" class="control-label">Giá <span class="red">*</span></label>
+                                            <input type="text" class="form-control" ng-model="ctdmct.gia0">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-md-3">
+                                        <div class="form-group">
+                                            <label for="title" class="control-label">Mã thuế</label>
+                                            <select class="form-control" ng-model="ctdmct.thue"
+                                                    ng-options="item as item.ten_thue for item in ds_thue"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-md-3">
+                                        <div class="form-group">
+                                            <label for="title" class="control-label">Giá sau VAT</label>
+                                            <input type="text" class="form-control">
+
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" ng-click="SaveCT(ctdmct)">Lưu</button>
+                        <button type="submit" class="btn btn-default" ng-click="SaveCT(ctdmct, true)" ng-if="addct_yn">Lưu và Copy</button>
+                        <button type="button" class="btn btn-warning" data-dismiss="modal" ng-click="CloseCT('addItemCT')">Đóng</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    @RenderBody()
+    <script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/script.js"></script>
+</body>
+</html>

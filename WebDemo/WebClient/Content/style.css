@@ -101,10 +101,6 @@ span + span {
     box-sizing: border-box;
 }
 
-.modal-title {
-    color: #005E9C;
-    font-weight: bold;
-}
 
 .tab-content {
     padding: 0px 10px;
@@ -134,4 +130,28 @@ input[type="checkbox"] {
 
 .center {
     text-align: center;
+}
+
+.lavender{
+    background-color: lavender;
+}
+
+.modal-content {
+    border-radius: 0;
+}
+
+.modal-footer {
+    background-color: #e2ecf9;
+}
+
+.modal-title {
+    text-align: center;
+    font-weight: bold;
+    color: #005e9c;
+}
+
+.frmadditem {
+    max-height: calc(100vh - 280px);
+    overflow-y: auto;
+    overflow-x: hidden;
 }

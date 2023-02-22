@@ -23,23 +23,21 @@
                     <li>
                         <button type="button"
                                 class="fa fa-refresh"
-                                onclick="loadData()"></button>
+                                ng-click="Reload()"></button>
                     </li>
                     <li>
                         <button type="button"
                                 class="fa fa-plus"
-                                id="add"
-                                data-toggle="modal"
-                                data-target="#myModal"></button>
+                                ng-click="Add()" ></button>
                     </li>
                     <li>
-                        <button type="button" class="fa fa-edit" id="edit"></button>
+                        <button type="button" class="fa fa-edit" ng-click="Edit(itemSelected)"></button>
                     </li>
                     <li><button type="button" class="fa fa-copy"></button></li>
                     <li>
                         <button type="button"
                                 class="fa fa-trash-o color-red"
-                                id="delete"></button>
+                                ng-click="Delete(indexSelected)"></button>
                     </li>
                 </ul>
             </div>
@@ -76,10 +74,10 @@
                     <th class="center">Tổng điểm</th>
                     <th class="center">Xếp loại</th>
                     </thead>
-                    <tbody id="ds_nv">
-                        <tr ng-repeat="item in ds_nv | filter: search | orderBy: '-khoa_dt'" ng-style="item.tong_diem  < 5 && {'background-color':'#ef9494'}  || item.tong_diem >= 7 && {'background-color':'#9fcbe875'}" style="background-color: #d7d789">
-                            <td class='center'> {{$index + 1}}</td>
-                            <td class='center'><input type='checkbox' onclick='clickCheckBox(item.ma_nv)' /></td>
+                    <tbody id="ds_nv"> 
+                        <tr ng-repeat="item in ds_nv | filter: search | orderBy: '-khoa_dt'" ng-class="item.checked ? 'lavender' :''" ng-click="OnClick(item, $index)">
+                            <td class='center'> {{$index + 1}}</td> 
+                            <td class='center'><input type='checkbox' ng-model="item.checked" ng-click="OnClick(item, $index)" /></td>
                             <td class='center'><button type='button' class='fa fa-pencil color-blue' onclick='editSelected(item.ma_nv)'></button></td>
                             <td class='center'><button type='button' class='fa fa-trash-o color-red' onclick='deleteData(item.ma_nv)'></button></td>
                             <td ng-bind="item.khoa_dt"></td>
@@ -95,17 +93,15 @@
                 </table>
             </div>
         </div>
-
-        <div id="myModal" class="modal fade">
+        <div id="addItemModal" class="modal fade" role="dialog">
             <div class="modal-dialog modal-lg">
+
+                <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">
-                            &times;
-                        </button>
-                        <h4 class="modal-title text-center" id="modal-title">
-                            Thêm thông tin nhân viên
-                        </h4>
+                        <button type="button" class="close" data-dismiss="modal" ng-click="Close('addItemModal')">&times;</button>
+                        <h4 class="modal-title" ng-if="add_yn" >Thêm bảng giá</h4>
+                        <h4 class="modal-title" ng-if="!add_yn" >Sửa bảng giá</h4>
                     </div>
                     <div class="modal-body">
                         <div class="tab-content">
@@ -200,22 +196,131 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" ng-click="addData()" id="save">
-                            Lưu
-                        </button>
-                        <button type="button" class="btn btn-default" id="saveAndAdd">
-                            Lưu và Thêm
-                        </button>
-                        <button type="button"
-                                class="btn btn-warning"
-                                data-dismiss="modal">
-                            Đóng
-                        </button>
+                        <button type="submit" class="btn btn-primary" ng-click="Save(ctdm)">Lưu</button>
+                        <button type="submit" class="btn btn-default" ng-click="Save(ctdm, true)" ng-if="add_yn">Lưu và Thêm</button>
+                        <button type="button" class="btn btn-warning" data-dismiss="modal" ng-click="Close('addItemModal')">Đóng</button>
                     </div>
                 </div>
+
             </div>
         </div>
+
+        <div id="addItemCT" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-md">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" ng-click="CloseCT('addItemCT')">&times;</button>
+                        <h4 class="modal-title" ng-if="addct_yn">Thêm vật tư</h4>
+                        <h4 class="modal-title" ng-if="!addct_yn">Sửa vật tư</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="tab-content">
+                            <div id="information">
+                                <div class="row">
+                                    <div class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4">
+                                        <label for="khoa_dt">Khóa đào tạo <span class="color-red">*</span></label>
+                                        <select class="form-control" id="khoa_dt" ng-model="nhan_vien.khoa_dt">
+                                            <option value=""></option>
+                                            <option value="HTML_CSS">HTML_CSS</option>
+                                            <option value="ANGULARJS">ANGULARJS</option>
+                                            <option value="OTHER">OTHER</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4">
+                                        <label for="ma_nv">Mã nhân viên <span class="color-red">*</span></label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id="ma_nv"
+                                               ng-model="nhan_vien.ma_nv"
+                                               placeholder="MÃ NHÂN VIÊN" />
+                                    </div>
+                                    <div class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4">
+                                        <label for="ngay_dg">Ngày đánh giá <span class="color-red">*</span></label>
+                                        <input type="date" class="form-control" id="ngay_dg" ng-model="nhan_vien.ngay_dg" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4">
+                                        <label for="tu_ngay">Từ ngày</label>
+                                        <input type="date" class="form-control" id="tu_ngay" ng-model="nhan_vien.tu_ngay" />
+                                    </div>
+                                    <div class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4">
+                                        <label for="ten_nv">Tên nhân viên<span class="color-red">*</span></label>
+                                        <input type="text"
+                                               placeholder="Tên nhân viên"
+                                               class="form-control"
+                                               ng-model="nhan_vien.ten_nv"
+                                               id="ten_nv" />
+                                    </div>
+                                    <div class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4">
+                                        <label for="sdt">Số điện thoại</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               ng-model="nhan_vien.sdt"
+                                               placeholder="Điện thoại"
+                                               id="sdt" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4">
+                                        <label for="den_ngay">Đến ngày</label>
+                                        <input type="date" class="form-control" id="den_ngay" ng-model="nhan_vien.den_ngay" />
+                                    </div>
+                                    <div class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4">
+                                        <label for="bo_phan">Bộ phận</label>
+                                        <select class="form-control" id="bo_phan" ng-model="nhan_vien.bo_phan">
+                                            <option value=""></option>
+                                            <option value="Dự án">Dự án</option>
+                                            <option value="R&D">R&D</option>
+                                            <option value="Sale">Sale</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4">
+                                        <label for="tong_diem">Tổng điểm</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id="tong_diem"
+                                               placeholder="Tổng điểm"
+                                               ng-model="nhan_vien.tong_diem" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4">
+                                        <label for="nguoi_hd">Người hướng dẫn</label>
+                                        <input type="text"
+                                               class="form-control"
+                                               id="nguoi_hd"
+                                               placeholder="Người hướng dẫn" />
+                                    </div>
+                                    <div class="form-group col-sx-12 col-sm-4 col-md-4 col-lg-4">
+                                        <label for="xep_loai">Xếp loại</label>
+                                        <select class="form-control" id="xep_loai">
+                                            <option value=""></option>
+                                            <option value="Tốt">Tốt</option>
+                                            <option value="Khá">Khá</option>
+                                            <option value="Trung bình">Trung bình</option>
+                                            <option value="Không xếp loại">Không xếp loại</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" ng-click="SaveCT(ctdmct)">Lưu</button>
+                        <button type="submit" class="btn btn-default" ng-click="SaveCT(ctdmct, true)" ng-if="addct_yn">Lưu và Copy</button>
+                        <button type="button" class="btn btn-warning" data-dismiss="modal" ng-click="CloseCT('addItemCT')">Đóng</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
     </div>
     @RenderBody()
     <script src="~/Content/bootstrap/js/bootstrap.min.js"></script>

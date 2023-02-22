@@ -1,5 +1,6 @@
 var app = angular.module("myApp", []);
 app.controller("myController", function ($scope, $http) {
+    //khai bao
     $scope.nhan_vien = {};
     function GetData() {
         $http({
@@ -30,8 +31,26 @@ app.controller("myController", function ($scope, $http) {
         if (diem >= 5 && diem < 6.5) return "Trung bình";
         return "Không xếp loại";
     }
-    $scope.addData = ThemMoi;
-    function ThemMoi() {
+
+    //su kien
+    $scope.OnClick = function (item, index) {
+        item.checked = !item.checked;
+    }
+    //#region FORM mmodal
+    $scope.Add = function () {
+        $scope.add_yn = true;
+        //gán thông tin mặc định
+        //InitData();
+
+        //show modal
+        $("#addItemModal").modal('show');
+        //focus vào trường đầu tiên
+        setTimeout(function () {
+            angular.element('#addItemModal input').first().focus();
+        }, 200);
+    }
+    $scope.save = function () {
+        $scope.add_yn = true;
         if (!validate($scope.nhan_vien)) return false;
         $http({
             url: '/API/api/NhanVienAPI/ThemMoi/',
@@ -50,8 +69,9 @@ app.controller("myController", function ($scope, $http) {
                 }
             }, function (response) {
             });
-        
     }
+
+
     function validate(nhanVien) {
         // Kiểm tra khóa đào tạo, mã nhân viên, ngày đánh giá, tên nhân viên không được bỏ trống
         if (!nhanVien.khoa_dt) {
